@@ -1,0 +1,28 @@
+﻿@model BiaBraga.Admin.Models.FormViewModel.Users.LoginViewModel
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Login.LoginUser" class="control-label"></label>
+                <input asp-for="Login.LoginUser" class="form-control" placeholder="Email ou CPF" />
+                <span asp-validation-for="Login.LoginUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Login.Password" class="control-label"></label>
+                <input asp-for="Login.Password" class="form-control" placeholder="Senha de acesso" />
+                <span asp-validation-for="Login.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

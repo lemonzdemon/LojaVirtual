@@ -1,4 +1,4 @@
-﻿namespace BiaBraga.Dominio.Enums
+﻿namespace BiaBraga.Domain.Enums
 {
     public enum Role
     {
