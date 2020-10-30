@@ -26,7 +26,7 @@ namespace BiaBraga.Admin.Services
 
         public override Task RedirectToAccessDenied(RedirectContext<CookieAuthenticationOptions> context)
         {
-            //context.
+            context.RedirectUri = "/Home/Restrito";
 
             return base.RedirectToAccessDenied(context);
         }

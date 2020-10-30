@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BiaBraga.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrativo, Supervisor")]
     [Route("[controller]")]
     public class UsersController : Controller
     {
@@ -32,7 +32,11 @@ namespace BiaBraga.Admin.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Home", "Index");
+                return RedirectToRoute(new
+                {
+                    controller = "Home",
+                    action = "Index"
+                });
             }
 
             return View();
@@ -68,7 +72,11 @@ namespace BiaBraga.Admin.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, propriedadeDeAutentificacao);
 
-                    return RedirectToRoute("Home", "Index");
+                    return RedirectToRoute(new
+                    {
+                        controller = "Home",
+                        action = "Index"
+                    });
                 }
 
                 return View(new LoginViewModel
@@ -196,6 +204,12 @@ namespace BiaBraga.Admin.Controllers
             var user = await _repository.GetByIdAsync(id);
             await _repository.DeleteAsync(user);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction(nameof(Login));
         }
     }
 }
