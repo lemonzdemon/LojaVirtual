@@ -1,0 +1,92 @@
+﻿@model BiaBraga.Domain.Models.Entitys.Product
+
+@{
+    ViewData["Title"] = "Cadastro de produtos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row align-content-center justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Nome do produto" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" placeholder="Descrição para o produto"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control money" placeholder="R$ 0,00" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OldPrice" class="control-label"></label>
+                    <input asp-for="OldPrice" class="form-control money" placeholder="R$ 0,00" />
+                    <span asp-validation-for="OldPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" value="0" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                        <option selected disabled style="display:none;">Seleciona uma categoria</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                </label>
+            </div>
+
+
+            <div class="btn-group w-100">  
+                <a asp-action="Index" class="btn btn-info m-2">
+                   Voltar
+                </a>
+                <button type="submit" class="btn btn-success m-2">
+                    Gravar novo produto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+
+<script>
+    $('.money').mask('0000.00', { reverse: true });
+
+</script>
+
+

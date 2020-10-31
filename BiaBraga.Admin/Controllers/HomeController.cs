@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BiaBraga.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
+using BiaBraga.Admin.Services;
+using BiaBraga.Domain.Enums;
 
 namespace BiaBraga.Admin.Controllers
 {
-    [Authorize(Roles = "Administrativo, Supervisor")]
+    [AuthService(Role.Administrador, Role.Supervisor)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

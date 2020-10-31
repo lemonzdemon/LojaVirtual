@@ -11,11 +11,12 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using BiaBraga.Admin.Services;
 
 namespace BiaBraga.Admin.Controllers
 {
-    [Authorize(Roles = "Administrativo, Supervisor")]
-    [Route("[controller]")]
+    [AuthService(Role.Administrador, Role.Supervisor)]
+    [Route("users")]
     public class UsersController : Controller
     {
         private readonly IUserRepository _repository;
@@ -103,7 +104,7 @@ namespace BiaBraga.Admin.Controllers
             return View(await _repository.GetAllAsync<User>());
         }
 
-        // GET: Users/Details/5
+        [Route("Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -120,15 +121,13 @@ namespace BiaBraga.Admin.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Nick,AboutMe,Password,CPF,Birth,Telephone,CellPhone,Email,ReceiveCellPhoneMessage,ReceiveEmailMessage,Date,Role")] User user)
@@ -141,7 +140,7 @@ namespace BiaBraga.Admin.Controllers
             return View(user);
         }
 
-        // GET: Users/Edit/5
+        [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -156,10 +155,7 @@ namespace BiaBraga.Admin.Controllers
             }
             return View(user);
         }
-
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("Edit/{id}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Nick,AboutMe,Password,CPF,Birth,Telephone,CellPhone,Email,ReceiveCellPhoneMessage,ReceiveEmailMessage,Date,Role")] User user)
@@ -179,7 +175,7 @@ namespace BiaBraga.Admin.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/5
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -196,8 +192,8 @@ namespace BiaBraga.Admin.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [Route("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -206,6 +202,8 @@ namespace BiaBraga.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Route("Logout")]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
