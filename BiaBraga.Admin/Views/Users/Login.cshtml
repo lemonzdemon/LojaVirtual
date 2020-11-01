@@ -1,9 +1,23 @@
 ﻿@model BiaBraga.Admin.Models.FormViewModel.Users.LoginViewModel
 
-
+<div class="text-center mt-4">
+    <h1>Administrativo Bia Braga Cosmetics & Sex Shop</h1>
+    <hr />
+</div>
 <div class="row align-content-center justify-content-center">
     <div class="col-md-4">
-        <form asp-action="login" method="post">
+
+        @if(Model != null && Model.ResultDefault != null)
+        {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Ops!</strong> @Model.ResultDefault.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        }
+        
+        <form asp-action="login" method="post" class="form bg-light p-4 mt-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Login.LoginUser" class="control-label"></label>
@@ -12,12 +26,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="Login.Password" class="control-label"></label>
-                <input asp-for="Login.Password" class="form-control" placeholder="Senha de acesso" />
+
+                <div class="form-pass-line">
+                    <input id="myPassword" asp-for="Login.Password" class="form-control" placeholder="Senha de acesso" />
+                    <span type="button" class="form-pass" id="btnico" onclick="altericon()"></span>
+                </div>
+
+
                 <span asp-validation-for="Login.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Entrar" class="btn btn-success w-100" />
+                <button type="submit" class="btn btn-success w-100">
+                    Acessar sua conta &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z" />
+                    </svg>
+                </button>
             </div>
         </form>
     </div>
@@ -26,3 +52,56 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    var btnico = document.getElementById('btnico');
+
+    var icoclose = "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-eye-slash-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'> " +
+        "<path d='M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z' /> " +
+        "<path d='M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829z' /> " +
+        "<path fill-rule='evenodd' d='M13.646 14.354l-12-12 .708-.708 12 12-.708.708z' />" +
+        "</svg>";
+
+    var icoopen = "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-eye-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'> " +
+        "<path d='M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z' /> " +
+        "<path fill-rule='evenodd' d='M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z' /> " +
+        "</svg>";
+
+    btnico.innerHTML = icoclose;
+
+    function altericon() {
+        var obj = document.getElementById('myPassword');
+
+        if (obj.type == "text") {
+            btnico.innerHTML = icoclose;
+            obj.type = "password";
+        }
+        else {
+            btnico.innerHTML = icoopen;
+            obj.type = "text";
+        }
+    }
+
+
+</script>
+
+<style>
+    .form-pass {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        border: none;
+        background: transparent;
+        outline: none;
+        margin: 5px 15px 0px 0px;
+    }
+
+    .form-pass-line {
+        position: relative;
+    }
+
+        .form-pass-line input {
+            width: 100%;
+        }
+</style>

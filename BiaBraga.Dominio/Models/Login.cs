@@ -8,6 +8,7 @@ namespace BiaBraga.Domain.Models
         [Display(Name = "Login")]
         public string LoginUser { get; set; }
         [Required(ErrorMessage = "Você deve informar sua senha de acesso!")]
+        [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; } 
     }
