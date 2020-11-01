@@ -17,6 +17,9 @@ namespace BiaBraga.Repository
 
             services.AddScoped<IBiaBragaRepository, BiaBragaRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddScoped<StartDefaultRepository>();
         }
     }

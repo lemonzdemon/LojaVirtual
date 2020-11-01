@@ -24,6 +24,7 @@ namespace BiaBraga.Domain.Models.Entitys
         public decimal Price { get; set; }
 
         [Display(Name = "Preço Antigo")]
+        [Required(ErrorMessage = "Preço antigo obrigatório")]
         [Range(0, 9999.99, ErrorMessage = "Preço antigo deve ser entre R$0.00 a R$9,999.99")]
         public decimal OldPrice { get; set; }
 

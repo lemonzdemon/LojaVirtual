@@ -69,3 +69,15 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.navbar .login-btn {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+@media (max-width: 767px) {
+    .navbar .login-btn {
+        right: 75px;
+    }
+}

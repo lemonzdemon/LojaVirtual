@@ -1,34 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using BiaBraga.Domain.Models.Entitys;
-using BiaBraga.Repository.Context;
 using BiaBraga.Admin.Services;
 using BiaBraga.Domain.Enums;
+using BiaBraga.Repository.Interfaces;
 
 namespace BiaBraga.Admin.Controllers
 {
     [AuthService(Role.Administrador, Role.Supervisor)]
-
     public class ProductsController : Controller
     {
-        private readonly BiaBragaDbContext _context;
+        private readonly IProductRepository _repository;
 
-
-        public ProductsController(BiaBragaDbContext context)
+        public ProductsController(IProductRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        // GET: Products
         public async Task<IActionResult> Index()
         {
-            var biaBragaDbContext = _context.Products.Include(p => p.Categoria);
-            return View(await biaBragaDbContext.ToListAsync());
+            return View(await _repository.GetAllAsync<Product>());
         }
 
         // GET: Products/Details/5
@@ -36,130 +29,114 @@ namespace BiaBraga.Admin.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-            var product = await _context.Products
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var product = await _repository.GetProductByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(product);
         }
 
-        // GET: Products/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name");
             return View();
         }
 
-        // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,Price,OldPrice,Quantity,Active,CategoryId,Date")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                product.Date = DateTime.UtcNow;
+
+                var priceString = product.Price.ToString();
+                var priceOldString = product.OldPrice.ToString();
+
+                product.Price = Convert.ToDecimal(priceString.Insert(priceString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
+                product.OldPrice = Convert.ToDecimal(priceOldString.Insert(priceOldString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
+
+
+                await _repository.AddAsync(product);
+                return RedirectToAction(nameof(Details), new { id = product.ID });
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
-        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _repository.GetProductByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,Price,OldPrice,Quantity,Active,CategoryId,Date")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.ID)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _repository.UpdateAsync(product);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception er)
                 {
-                    if (!ProductExists(product.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Details), new { id = product.ID });
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
-        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-            var product = await _context.Products
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var product = await _repository.GetProductByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var product = await _repository.GetProductByIdAsync(id);
 
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.ID == id);
+            await _repository.DeleteAsync(product);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

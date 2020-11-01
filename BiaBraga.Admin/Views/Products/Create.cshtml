@@ -32,12 +32,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control money" placeholder="R$ 0,00" />
+                    <input asp-for="Price" onchange="DecimalPriceChange(this)" class="form-control money" placeholder="R$ 0,00" value="0.00" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label asp-for="OldPrice" class="control-label"></label>
-                    <input asp-for="OldPrice" class="form-control money" placeholder="R$ 0,00" />
+                    <input asp-for="OldPrice" onchange="DecimalPriceChange(this)" class="form-control money" placeholder="R$ 0,00" value="0.00" />
                     <span asp-validation-for="OldPrice" class="text-danger"></span>
                 </div>
             </div>
@@ -54,6 +54,7 @@
                     <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
                         <option selected disabled style="display:none;">Seleciona uma categoria</option>
                     </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 
             </div>
@@ -66,11 +67,11 @@
             </div>
 
 
-            <div class="btn-group w-100">  
+            <div class="btn-group w-100">
                 <a asp-action="Index" class="btn btn-info m-2">
-                   Voltar
+                    Voltar
                 </a>
-                <button type="submit" class="btn btn-success m-2">
+                <button onclick="submitForm()" class="btn btn-success m-2">
                     Gravar novo produto
                 </button>
             </div>
@@ -81,11 +82,25 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 
 <script>
     $('.money').mask('0000.00', { reverse: true });
+
+    function DecimalPriceChange(element) {
+
+        console.log(element.value);
+
+        if (!element.value) {
+            element.value = '0.00';
+        }
+        else if (!element.value.includes('.')) {
+
+            element.value += '.00';
+        }
+    }
 
 </script>
 
