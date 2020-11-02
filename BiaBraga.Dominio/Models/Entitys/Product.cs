@@ -5,6 +5,7 @@ namespace BiaBraga.Domain.Models.Entitys
 {
     public class Product
     {
+        [Display(Name = "Código do produto")]
         public int ID { get; set; }
 
         [Display(Name = "Nome")]

@@ -14,11 +14,21 @@ namespace BiaBraga.Repository.Repository
         {
         }
 
+
         public async Task<List<Product>> GetAllProductByCategorie(int categoryId) => 
             await _context.Products
             .Include(x => x.Categoria)
             .Where(x => x.CategoryId == categoryId)
             .ToListAsync();
+
+        public async Task<List<Product>> GetAllProductsAsync() =>
+            await _context.Products
+            .Include(x => x.Categoria)
+            .OrderBy(x => x.Categoria)
+            .ThenBy(x => x.Name)
+            .ToListAsync();
+
+
 
         public async Task<Product> GetProductByIdAsync(int id) => 
             await _context.Products

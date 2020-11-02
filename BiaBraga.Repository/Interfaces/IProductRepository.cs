@@ -8,5 +8,8 @@ namespace BiaBraga.Repository.Interfaces
     {
         Task<Product> GetProductByIdAsync(int id);
         Task<List<Product>> GetAllProductByCategorie(int categoryId);
+
+        Task<List<Product>> GetAllProductsAsync();
+
     }
 }

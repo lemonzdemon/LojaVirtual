@@ -6,6 +6,7 @@ using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Admin.Services;
 using BiaBraga.Domain.Enums;
 using BiaBraga.Repository.Interfaces;
+using System.Linq;
 
 namespace BiaBraga.Admin.Controllers
 {
@@ -19,9 +20,34 @@ namespace BiaBraga.Admin.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? category, string name)
         {
-            return View(await _repository.GetAllAsync<Product>());
+
+            var categoriesSelectList = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name");
+
+            var products = await _repository.GetAllProductsAsync();
+
+            if (category.HasValue)
+            {
+                products = products.Where(x => x.CategoryId == category.Value).ToList();
+
+                var categorySelected = categoriesSelectList.FirstOrDefault(x => x.Value == category.Value.ToString());
+
+                if (categorySelected != null)
+                {
+                    categorySelected.Selected = true;
+                }
+            }
+
+            ViewData["CategoryId"] = categoriesSelectList;
+            ViewData["Filtro"] = name;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                products = products.Where(x => x.Name.ToUpper().Contains(name.ToUpper())).ToList();
+            }
+
+            return View(products);
         }
 
         // GET: Products/Details/5
@@ -47,6 +73,25 @@ namespace BiaBraga.Admin.Controllers
             return View();
         }
 
+        private (decimal, decimal) FormatDecimalPrices(decimal price, decimal priceOld, bool save)
+        {
+            if (!save)
+            {
+                price = decimal.Round(price, 2, MidpointRounding.AwayFromZero);
+                priceOld = decimal.Round(priceOld, 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                var priceString = price.ToString();
+                var priceOldString = priceOld.ToString();
+
+                price = Convert.ToDecimal(priceString.Insert(priceString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
+                priceOld = Convert.ToDecimal(priceOldString.Insert(priceOldString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            return (price, priceOld);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
@@ -55,11 +100,10 @@ namespace BiaBraga.Admin.Controllers
             {
                 product.Date = DateTime.UtcNow;
 
-                var priceString = product.Price.ToString();
-                var priceOldString = product.OldPrice.ToString();
+                var decimals = FormatDecimalPrices(product.Price, product.OldPrice, true);
 
-                product.Price = Convert.ToDecimal(priceString.Insert(priceString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
-                product.OldPrice = Convert.ToDecimal(priceOldString.Insert(priceOldString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
+                product.Price = decimals.Item1;
+                product.OldPrice = decimals.Item2;
 
 
                 await _repository.AddAsync(product);
@@ -77,10 +121,17 @@ namespace BiaBraga.Admin.Controllers
             }
 
             var product = await _repository.GetProductByIdAsync(id.Value);
+
             if (product == null)
             {
                 return RedirectToAction(nameof(Index));
             }
+
+            var decimals = FormatDecimalPrices(product.Price, product.OldPrice, false);
+
+            product.Price = decimals.Item1;
+            product.OldPrice = decimals.Item2;
+
             ViewData["CategoryId"] = new SelectList(await _repository.GetAllAsync<Category>(), "Id", "Name", product.CategoryId);
             return View(product);
         }
@@ -99,6 +150,12 @@ namespace BiaBraga.Admin.Controllers
             {
                 try
                 {
+                    var decimals = FormatDecimalPrices(product.Price, product.OldPrice, true);
+
+                    product.Price = decimals.Item1;
+                    product.OldPrice = decimals.Item2;
+
+
                     await _repository.UpdateAsync(product);
                 }
                 catch (Exception er)
