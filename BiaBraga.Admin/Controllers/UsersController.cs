@@ -180,6 +180,9 @@ namespace BiaBraga.Admin.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["GenerId"] = new SelectList(await _repository.GetAllAsync<Genre>(), "Id", "Name");
+
             return View(user);
         }
         [Route("Edit/{id}")]
@@ -199,6 +202,7 @@ namespace BiaBraga.Admin.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["GenerId"] = new SelectList(await _repository.GetAllAsync<Genre>(), "Id", "Name");
             return View(user);
         }
 

@@ -8,7 +8,7 @@ namespace BiaBraga.Repository
 {
     public class Settings
     {
-        private readonly string ConnectionString = "server=localhost;userid=root;password=123456;database=biabraga";
+        private readonly string ConnectionString = "server=localhost;userid=root;password=root;database=biabraga";
 
         public virtual void ConfigureServices(IServiceCollection services)
         {

@@ -23,28 +23,16 @@ namespace BiaBraga.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Genres",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Nick = table.Column<string>(maxLength: 20, nullable: true),
-                    AboutMe = table.Column<string>(maxLength: 1000, nullable: true),
-                    Password = table.Column<string>(maxLength: 50, nullable: false),
-                    CPF = table.Column<string>(maxLength: 14, nullable: true),
-                    Birth = table.Column<DateTime>(nullable: false),
-                    Telephone = table.Column<string>(maxLength: 14, nullable: true),
-                    CellPhone = table.Column<string>(maxLength: 14, nullable: true),
-                    Email = table.Column<string>(maxLength: 100, nullable: false),
-                    ReceiveCellPhoneMessage = table.Column<bool>(nullable: false),
-                    ReceiveEmailMessage = table.Column<bool>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Role = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,10 +61,47 @@ namespace BiaBraga.Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Nick = table.Column<string>(maxLength: 20, nullable: true),
+                    AboutMe = table.Column<string>(maxLength: 1000, nullable: true),
+                    GenerId = table.Column<int>(nullable: false),
+                    Password = table.Column<string>(maxLength: 50, nullable: false),
+                    CPF = table.Column<string>(maxLength: 14, nullable: true),
+                    Birth = table.Column<DateTime>(nullable: false),
+                    Telephone = table.Column<string>(maxLength: 14, nullable: true),
+                    CellPhone = table.Column<string>(maxLength: 14, nullable: true),
+                    Email = table.Column<string>(maxLength: 100, nullable: false),
+                    ReceiveCellPhoneMessage = table.Column<bool>(nullable: false),
+                    ReceiveEmailMessage = table.Column<bool>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Role = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Genres_GenerId",
+                        column: x => x.GenerId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_GenerId",
+                table: "Users",
+                column: "GenerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -89,6 +114,9 @@ namespace BiaBraga.Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
         }
     }
 }

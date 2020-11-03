@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiaBraga.Repository.Migrations
 {
     [DbContext(typeof(BiaBragaDbContext))]
-    [Migration("20201030011430_init")]
+    [Migration("20201103141701_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace BiaBraga.Repository.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("BiaBraga.Domain.Entitys.Category", b =>
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,23 @@ namespace BiaBraga.Repository.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BiaBraga.Domain.Entitys.Product", b =>
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Product", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -80,7 +96,7 @@ namespace BiaBraga.Repository.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("BiaBraga.Domain.Entitys.User", b =>
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,6 +124,9 @@ namespace BiaBraga.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
                         .HasMaxLength(100);
+
+                    b.Property<int>("GenerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -138,14 +157,25 @@ namespace BiaBraga.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenerId");
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BiaBraga.Domain.Entitys.Product", b =>
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Product", b =>
                 {
-                    b.HasOne("BiaBraga.Domain.Entitys.Category", "Categoria")
+                    b.HasOne("BiaBraga.Domain.Models.Entitys.Category", "Categoria")
                         .WithMany()
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.User", b =>
+                {
+                    b.HasOne("BiaBraga.Domain.Models.Entitys.Genre", "Gener")
+                        .WithMany()
+                        .HasForeignKey("GenerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
