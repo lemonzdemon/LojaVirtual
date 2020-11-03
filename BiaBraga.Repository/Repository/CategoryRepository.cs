@@ -12,12 +12,15 @@ namespace BiaBraga.Repository.Repository
         {
         }
 
-        public async Task<bool> CategorieExistAsync(string name) =>
+        public async Task<bool> CategorieExistAsync(string name, int? id) =>
             await _context.Categories
-            .AnyAsync(x => x.Name.ToUpper() == name.ToUpper());
+            .AnyAsync(x => x.Name.ToUpper() == name.ToUpper() && x.Id != id);
 
         public async Task<Category> GetCategoryByIdAsync(int id) =>
             await _context.Categories
             .FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<bool> CategorieExistInProductAsync(int id) =>
+            await _context.Products.AnyAsync(x => x.CategoryId == id);
     }
 }

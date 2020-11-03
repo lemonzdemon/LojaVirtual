@@ -32,18 +32,18 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item"
-                                       asp-controller="Products" 
+                                       asp-controller="Products"
                                        asp-action="Index"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
-                                       title="Gerenciamento sobre os produtos">Principal</a>
+                                       title="Gerenciamento sobre os produtos">Produtos</a>
                                     <a class="dropdown-item"
-                                       asp-controller="Categories" 
+                                       asp-controller="Categories"
                                        asp-action="Index"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
                                        title="Gerenciamento sobre as categorias dos produtos">Categorias</a>
-                                    <a class="dropdown-item" 
+                                    <a class="dropdown-item"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
                                        href="#"
@@ -57,6 +57,9 @@
                                 </div>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Usuarios</a>
+                            </li>
                         </ul>
                     </div>
                     <a class="btn btn-light text-dark login-btn mt-1" asp-area="" asp-controller="Users" asp-action="Logout">

@@ -64,6 +64,8 @@ namespace BiaBraga.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            product.Date = product.Date.ToLocalTime();
+
             return View(product);
         }
 
@@ -169,25 +171,9 @@ namespace BiaBraga.Admin.Controllers
             return View(product);
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var product = await _repository.GetProductByIdAsync(id.Value);
-            if (product == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(product);
-        }
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, Route("Delete/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var product = await _repository.GetProductByIdAsync(id);
 

@@ -4,6 +4,7 @@ namespace BiaBraga.Domain.Models.Entitys
 {
     public class Category
     {
+        [Display(Name = "Codigo da categoria")]
         public int Id { get; set; }
 
         [Display(Name = "Nome")]

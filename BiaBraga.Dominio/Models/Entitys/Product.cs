@@ -43,6 +43,8 @@ namespace BiaBraga.Domain.Models.Entitys
         public int CategoryId { get; set; }
         public Category Categoria { get; set; }
 
+
+        [Display(Name = "Data de cadastro")]
         [Required(ErrorMessage = "Data de cadastro obrigatória")]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }

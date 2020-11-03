@@ -1,8 +1,10 @@
 ﻿using BiaBraga.Domain.Models;
 using BiaBraga.Domain.Models.Entitys;
+using BiaBraga.Repository.Classes;
 using BiaBraga.Repository.Context;
 using BiaBraga.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BiaBraga.Repository.Repository
@@ -13,8 +15,11 @@ namespace BiaBraga.Repository.Repository
         {
         }
 
+        public async Task<List<User>> GetAllUsersAsync()
+        => await _context.Users.Include(x => x.Gener).ToListAsync();
+
         public async Task<User> GetByIdAsync(int id)
-        => await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        => await _context.Users.Include(x => x.Gener).FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<ResultDefault> VerifyLoginAsync(Login login)
         {
@@ -30,7 +35,7 @@ namespace BiaBraga.Repository.Repository
 
             if(user != null)
             {
-                if(user.Password == login.Password)
+                if(user.Password == Encript.HashValue(login.Password))
                 {
                     resultDefault = new ResultDefault
                     {

@@ -24,7 +24,7 @@ namespace BiaBraga.Repository.Repository
         public async Task<List<Product>> GetAllProductsAsync() =>
             await _context.Products
             .Include(x => x.Categoria)
-            .OrderBy(x => x.Categoria)
+            .OrderBy(x => x.Categoria.Name)
             .ThenBy(x => x.Name)
             .ToListAsync();
 

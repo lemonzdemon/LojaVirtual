@@ -1,37 +1,49 @@
 ﻿@model BiaBraga.Domain.Models.Entitys.Category
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar categoria";
+    var errorName = ViewBag.Error != null ? ViewBag.Error : string.Empty;
 }
 
-<h1>Edit</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Category</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row align-content-center justify-content-center">
+    <div class="jumbotron col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" disabled class="form-control" />
+            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" placeholder="Nome da categoria" />
+                <span asp-validation-for="Name" class="text-danger">@errorName</span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
+                <textarea asp-for="Description" class="form-control" placeholder="Descrição da categoria"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="btn-group w-100">
+                <a asp-action="Index" class="btn btn-info m-2 font-weight-bold">
+                    VOLTAR &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
+                    </svg>
+                </a>
+                <button type="submit" class="btn btn-success m-2 font-weight-bold">
+                    GRAVAR &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z" />
+                    </svg>
+                </button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

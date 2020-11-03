@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Repository.Interfaces;
+using System.Linq;
 
 namespace BiaBraga.Admin.Controllers
 {
@@ -15,12 +16,21 @@ namespace BiaBraga.Admin.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name)
         {
-            return View(await _repository.GetAllAsync<Category>());
+            var categories = await _repository.GetAllAsync<Category>();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                categories = categories.Where(x => x.Name.ToUpper().Contains(name.ToUpper())).ToList();
+            }
+
+            ViewData["Filtro"] = name;
+
+            return View(categories);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string error)
         {
             if (id == null)
             {
@@ -33,6 +43,8 @@ namespace BiaBraga.Admin.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["Error"] = error;
 
             return View(category);
         }
@@ -49,10 +61,17 @@ namespace BiaBraga.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(await _repository.CategorieExistAsync(category.Name, null))
+                {
+                    ViewData["Error"] = "Ja existe uma categoria com esse nome.";
+                    return View(category);
+                }
+
                 await _repository.AddAsync(category);
 
                 return RedirectToAction(nameof(Details), new { id = category.Id });
             }
+
             return View(category);
         }
 
@@ -85,37 +104,38 @@ namespace BiaBraga.Admin.Controllers
             {
                 try
                 {
+                    if (await _repository.CategorieExistAsync(category.Name, id))
+                    {
+                        ViewData["Error"] = "Ja existe uma categoria com esse nome.";
+                        return View(category);
+                    }
+
+
                     await _repository.UpdateAsync(category);
                 }
                 catch (Exception er)
                 {
-                   
+
                 }
                 return RedirectToAction(nameof(Details), new { id = category.Id });
             }
             return View(category);
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var category = await _repository.GetCategoryByIdAsync(id.Value);
-            if (category == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(category);
-        }
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, Route("DeleteCategorie/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteCategorie(int id)
         {
+            if (await _repository.CategorieExistInProductAsync(id))
+            {
+                return RedirectToAction(nameof(Details),
+                    new
+                    {
+                        id = id,
+                        error = "hfsdasdfffuh29384y"
+                    });
+            }
+
             var category = await _repository.GetCategoryByIdAsync(id);
 
             await _repository.DeleteAsync(category);

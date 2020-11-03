@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Authentication;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BiaBraga.Admin.Services;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using BiaBraga.Repository.Classes;
 
 namespace BiaBraga.Admin.Controllers
 {
@@ -99,9 +102,33 @@ namespace BiaBraga.Admin.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtro)
         {
-            return View(await _repository.GetAllAsync<User>());
+            var users = await _repository.GetAllUsersAsync();
+
+            string filtroUpdate = filtro;
+            if (!string.IsNullOrEmpty(filtroUpdate))
+            {
+                filtroUpdate = filtroUpdate.ToUpper().Trim();
+
+                users = users.Where(x =>
+                x.Name.ToUpper().Contains(filtroUpdate) ||
+
+                (x.Nick != null && x.Nick.ToUpper().Contains(filtroUpdate)) ||
+
+                x.Email.ToUpper().Contains(filtroUpdate) ||
+
+                (x.CPF != null &&
+                x.CPF.Replace(".", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty)
+                .Contains(filtroUpdate.Replace(".", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty)))
+
+
+                ).ToList();
+            }
+
+            ViewData["Filtro"] = filtro;
+
+            return View(users);
         }
 
         [Route("Details/{id}")]
@@ -167,7 +194,7 @@ namespace BiaBraga.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
+                user.Password = Encript.HashValue(user.Password);
                 await _repository.UpdateAsync(user);
 
                 return RedirectToAction(nameof(Index));

@@ -1,4 +1,5 @@
 ﻿using BiaBraga.Domain.Models.Entitys;
+using BiaBraga.Repository.Classes;
 using BiaBraga.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,8 +30,8 @@ namespace BiaBraga.Repository.Repository
                     AboutMe = "Sou como você me vê. " +
                               "Posso ser leve como uma brisa ou forte como uma ventania, " +
                               "Depende de quando e como você me vê passar.",
-                    Date = DateTime.Now,
-                    Password = "admin",
+                    Date = DateTime.UtcNow,
+                    Password = Encript.HashValue("admin"),
                     CellPhone = "14981162437",
                     Email = "biabraga@gmail.com",
                     ReceiveCellPhoneMessage = false,
@@ -48,8 +49,8 @@ namespace BiaBraga.Repository.Repository
                     Nick = "Alex",
                     Birth = new DateTime(1993, 01, 23),
                     AboutMe = "Ninguém tem o direito de me julgar a não ser eu mesmo.Eu me pertenço e de mim faço o que bem entender.",
-                    Date = DateTime.Now,
-                    Password = "admin",
+                    Date = DateTime.UtcNow,
+                    Password = Encript.HashValue("admin"),
                     CellPhone = "14981725654",
                     Email = "alexmatos@gmail.com",
                     ReceiveCellPhoneMessage = false,

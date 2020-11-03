@@ -8,6 +8,8 @@ namespace BiaBraga.Domain.Models.Entitys
 {
     public class User 
     {
+        [Display(Name = "Codigo do usuario")]
+
         public int Id { get; set; }
 
         [Display(Name = "Nome Completo")]
