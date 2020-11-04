@@ -1,4 +1,5 @@
 ﻿@model BiaBraga.Domain.Models.Entitys.Product
+@using BiaBraga.Repository.Classes 
 
 @{
     ViewData["Title"] = "Detalhes do produto";
@@ -169,16 +170,16 @@
             </div>
             <div class="modal-body" style="max-height:500px; overflow:auto">
 
-                <div id="card-images" class="card-deck">
+                <div id="card-images" class="card-group">
                 </div>
 
             </div>
             <div class="modal-footer">
                 <form id="form-image" class="bg-light m-3" method="post" enctype="multipart/form-data"
-                      action="https://localhost:44346/api/services/upload/?folder=products&idProduto=@Model.ID">
+                      action="@Settings.UrlAPI/api/services/upload/?folder=products&idProduto=@Model.ID">
 
                     <div class="form-group">
-                        <input type="file" oninput="alterbutton(this)" class="form-control-file btn btn-info" id="file" name="file" />
+                        <input id="input-image" type="file" oninput="alterbutton(this)" class="form-control-file btn btn-info" id="file" name="file" />
                     </div>
                     <div class="form-group">
                         <button id="btn-upload" class="btn btn-success w-100" disabled type="submit" formmethod="post">
@@ -211,31 +212,53 @@
 
         var xmlHttp = new XMLHttpRequest();
 
-        var urlimages = "https://localhost:44346/api/products/images/@Model.ID";
+        var urlimages = @Settings.UrlAPI + "api/products/images/@Model.ID";
 
         xmlHttp.open("GET", urlimages, false); // false for synchronous request
         xmlHttp.onload = function () {
 
             if (xmlHttp.status == 200) {
+
+                document.getElementById('input-image').value = '';
                 var cards = document.getElementById('card-images');
 
                 var images = JSON.parse(xmlHttp.response);
 
-                console.log(images);
+                cards.innerHTML = '';
 
-                console.log(images);
                 for (i = 0; i < images.length; i++) {
 
-                    var urlimage = 'https://localhost:44346/resources/images/products/' + @Model.ID + '/' + images[i].name;
+                    var urlimage = @Settings.UrlAPI + 'resources/images/products/' + @Model.ID + '/' + images[i].name;
                     cards.insertAdjacentHTML('beforeend',
-                        "<div class='card m-auto mb-2' style='min-width: 18rem; max-width: 18rem;'>" +
+                        "<div class='card mb-4 m-2' style='min-width: 22rem; max-width: 22rem;'>" +
+                        " <div class='card-body'> " +
                         "<img class='card-img-top' src='" + urlimage + "' alt='image'>" +
+                        "</div>" +
+                        " <div class='card-footer'> " +
+                        "<button onclick='removeFile(" + images[i].name + ")' class='btn btn-danger'>Remover imagem</button>" +
+                        "</div>" +
                         "</div>");
 
                 }
             }
         };
         xmlHttp.send(new FormData());
+    }
+
+    function removeFile(codimage) {
+
+    }
+
+    async function serviceHttp(method) {
+        const request = await fetch(urlApp + 'projetos/' + method + '/', {
+            method: 'POST',
+            contentType: 'application/json'
+        });
+
+            const response = await request.json();
+
+            return response;
+
     }
 
 
@@ -257,8 +280,6 @@
             }
         };
         ajax.send(formData);
-
-
     });
 
 </script>

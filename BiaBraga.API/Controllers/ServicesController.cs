@@ -54,5 +54,27 @@ namespace BiaBraga.API.Controllers
 
             return BadRequest();
         }
+
+        [HttpPost("delete/files")]
+        public IActionResult RemoveFile(string folder, string file)
+        {
+            try
+            {
+                var folderName = Path.Combine("Resources", "images", folder, file);
+                var fullpath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (System.IO.File.Exists(fullpath))
+                {
+                    System.IO.File.Delete(fullpath);
+                }
+
+                return NotFound();
+            }
+            catch (Exception)
+            {  
+            }
+
+            return BadRequest();
+        }
     }
 }

@@ -87,6 +87,16 @@ namespace BiaBraga.Admin.Controllers
                 var priceString = price.ToString();
                 var priceOldString = priceOld.ToString();
 
+                if(priceString == "0")
+                {
+                    priceString = "0000";
+                }
+
+                if (priceOldString == "0")
+                {
+                    priceOldString = "0000";
+                }
+
                 price = Convert.ToDecimal(priceString.Insert(priceString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
                 priceOld = Convert.ToDecimal(priceOldString.Insert(priceOldString.Length - 2, "."), System.Globalization.CultureInfo.InvariantCulture);
             }
