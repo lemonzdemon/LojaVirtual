@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiaBraga.Domain", "BiaBraga
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{E400E027-703F-48C4-A637-DFB712CD6F46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiaBraga.Admin", "BiaBraga.Admin\BiaBraga.Admin.csproj", "{4B021BDB-2965-443D-86E9-CEA0BF05B55B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiaBraga.Admin", "BiaBraga.Admin\BiaBraga.Admin.csproj", "{4B021BDB-2965-443D-86E9-CEA0BF05B55B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{149B4237-8D2F-43EA-8F8B-484A3FC77541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiaBraga.Repository", "BiaBraga.Repository\BiaBraga.Repository.csproj", "{458CFEC5-3B01-4A85-8642-7C951F3792BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiaBraga.Repository", "BiaBraga.Repository\BiaBraga.Repository.csproj", "{458CFEC5-3B01-4A85-8642-7C951F3792BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiaBraga.API", "BiaBraga.API\BiaBraga.API.csproj", "{8E2F5374-C72D-45D0-A88E-0186A3820059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{458CFEC5-3B01-4A85-8642-7C951F3792BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{458CFEC5-3B01-4A85-8642-7C951F3792BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{458CFEC5-3B01-4A85-8642-7C951F3792BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2F5374-C72D-45D0-A88E-0186A3820059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2F5374-C72D-45D0-A88E-0186A3820059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2F5374-C72D-45D0-A88E-0186A3820059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2F5374-C72D-45D0-A88E-0186A3820059}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{41FBA676-9D1A-4FDC-B080-D3644DF8EC4B} = {04DE4F41-9FE8-462C-A826-301B8AE3D12A}
 		{4B021BDB-2965-443D-86E9-CEA0BF05B55B} = {E400E027-703F-48C4-A637-DFB712CD6F46}
 		{458CFEC5-3B01-4A85-8642-7C951F3792BA} = {149B4237-8D2F-43EA-8F8B-484A3FC77541}
+		{8E2F5374-C72D-45D0-A88E-0186A3820059} = {E400E027-703F-48C4-A637-DFB712CD6F46}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A2C7E59-58D5-4E26-A3AF-2D9F8030A477}

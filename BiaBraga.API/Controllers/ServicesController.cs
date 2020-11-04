@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using BiaBraga.Repository.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BiaBraga.API.Controllers
+{
+    [Route("api/services")]
+    [ApiController]
+    public class ServicesController : ControllerBase
+    {
+        private readonly IBiaBragaRepository _repository;
+
+        public ServicesController(IBiaBragaRepository repository)
+        {
+            _repository = repository;
+        }
+
+
+        [HttpPost("upload")]
+        public IActionResult Upload(string folder, int idProduto)
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "images", folder, idProduto.ToString());
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                Directory.CreateDirectory(pathToSave);
+
+                if (file.Length > 0)
+                {
+                    var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+
+                    string newFileName = $"{DateTime.Now:yyyyMMddHHmmss}{new FileInfo(filename).Extension}";
+                    var fullPath = Path.Combine(pathToSave, newFileName.Replace("\"", " ").Trim());
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    return Ok(newFileName);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return BadRequest();
+        }
+    }
+}

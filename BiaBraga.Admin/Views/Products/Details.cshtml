@@ -74,13 +74,13 @@
         </svg>
     </a>
 
-    <a href="#" class="btn btn-info m-2 font-weight-bold">
-        IMAGENS &nbsp;
+    <button type="button" class="btn btn-info m-2 font-weight-bold" data-toggle="modal" data-target="#modal-image">
+        ARQUIVOS &nbsp;
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-images" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M12.002 4h-10a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1zm-10-1a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-10zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
             <path fill-rule="evenodd" d="M4 2h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1z" />
         </svg>
-    </a>
+    </button>
 
     <button type="button"
             class="btn btn-danger m-2 font-weight-bold"
@@ -93,7 +93,8 @@
         </svg>
     </button>
 </div>
-<br /><br />
+<br />
+<br />
 
 
 
@@ -151,3 +152,113 @@
         </div>
     </div>
 </div>
+
+
+<div id="modal-image" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Arquivos</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow:auto">
+
+                <div id="card-images" class="card-deck">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <form id="form-image" class="bg-light m-3" method="post" enctype="multipart/form-data"
+                      action="https://localhost:44346/api/services/upload/?folder=products&idProduto=@Model.ID">
+
+                    <div class="form-group">
+                        <input type="file" oninput="alterbutton(this)" class="form-control-file btn btn-info" id="file" name="file" />
+                    </div>
+                    <div class="form-group">
+                        <button id="btn-upload" class="btn btn-success w-100" disabled type="submit" formmethod="post">
+                            GRAVAR ARQUIVO &nbsp;
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function alterbutton(element) {
+        var obj = document.getElementById('btn-upload');
+
+        if (element.value && element.value.length > 0) {
+            obj.disabled = false;
+        }
+        else {
+            obj.disabled = true;
+        }
+    }
+
+    function selectImages() {
+
+        var xmlHttp = new XMLHttpRequest();
+
+        var urlimages = "https://localhost:44346/api/products/images/@Model.ID";
+
+        xmlHttp.open("GET", urlimages, false); // false for synchronous request
+        xmlHttp.onload = function () {
+
+            if (xmlHttp.status == 200) {
+                var cards = document.getElementById('card-images');
+
+                var images = JSON.parse(xmlHttp.response);
+
+                console.log(images);
+
+                console.log(images);
+                for (i = 0; i < images.length; i++) {
+
+                    var urlimage = 'https://localhost:44346/resources/images/products/' + @Model.ID + '/' + images[i].name;
+                    cards.insertAdjacentHTML('beforeend',
+                        "<div class='card m-auto mb-2' style='min-width: 18rem; max-width: 18rem;'>" +
+                        "<img class='card-img-top' src='" + urlimage + "' alt='image'>" +
+                        "</div>");
+
+                }
+            }
+        };
+        xmlHttp.send(new FormData());
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        selectImages();
+    });
+
+    var form = document.getElementById('form-image');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault(); // <--- isto pára o envio da form
+
+        var url = this.action; // <--- o url que processa a form
+        var formData = new FormData(this); // <--- os dados da form
+        var ajax = new XMLHttpRequest();
+        ajax.open("POST", url, true);
+        ajax.onload = function () {
+            if (ajax.status == 200) {
+                selectImages();
+            }
+        };
+        ajax.send(formData);
+
+
+    });
+
+</script>
