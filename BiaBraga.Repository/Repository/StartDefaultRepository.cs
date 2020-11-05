@@ -23,6 +23,25 @@ namespace BiaBraga.Repository.Repository
             {
                 await AddAsync(new User
                 {
+                    Name = "Assistente administrativo virtual",
+                    Role = Domain.Enums.Role.Administrador,
+                    Birth = new DateTime(2000, 10, 11),
+                    AboutMe = "Responsável por todos os processos automáticos da aplicação.",
+                    Date = DateTime.UtcNow,
+                    Password = Encript.HashValue("admin"),
+                    CellPhone = "99999999999",
+                    Email = "administrativo@biabraga.com",
+                    CPF = "99999999999",
+                    ReceiveCellPhoneMessage = false,
+                    ReceiveEmailMessage = false,
+                    Gener = new Genre
+                    {
+                        Name = "Indefinido"
+                    }
+                });
+
+                await AddAsync(new User
+                {
                     Name = "Beatriz Braga",
                     Role = Domain.Enums.Role.Administrador,
                     Nick = "Bia",
