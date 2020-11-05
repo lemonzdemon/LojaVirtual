@@ -15,11 +15,12 @@ namespace BiaBraga.Repository.Repository
         {
         }
 
+
         public async Task CreateDefaultAsync()
         {
-            var _userAdmin = await _context.Users.FirstOrDefaultAsync(x => x.Role == Domain.Enums.Role.Administrador);
+            var userAdmin = await _context.Users.AnyAsync(x => x.Role == Domain.Enums.Role.Administrador);
 
-            if(_userAdmin == null)
+            if(!userAdmin)
             {
                 await AddAsync(new User
                 {
@@ -80,6 +81,112 @@ namespace BiaBraga.Repository.Repository
                     }
                 });
             }
+
+            var contacts = await _context.Contacts.AnyAsync();
+            
+            if(!contacts)
+            {
+                await AddAsync(new Contact
+                {
+                    Name = "João Vitor",
+                    Email = "joaovitor@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-1).AddMinutes(-90),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Maria da silva",
+                    Email = "mariasilva@teste.com",
+                    Message = "Auctor augue mauris augue neque gravida in. Integer quis auctor elit sed vulputate. In hendrerit gravida rutrum quisque non. Sem integer vitae justo eget. Quis risus sed vulputate odio ut enim blandit volutpat. Phasellus faucibus scelerisque eleifend donec pretium. Amet nisl suscipit adipiscing bibendum est. Metus vulputate eu scelerisque felis. Ut etiam sit amet nisl purus in mollis nunc sed. Ipsum consequat nisl vel pretium lectus quam id leo. Donec ac odio tempor orci dapibus ultrices in iaculis. Id ornare arcu odio ut sem nulla. Odio morbi quis commodo odio aenean sed. Gravida rutrum quisque non tellus orci ac. Pretium lectus quam id leo in vitae turpis massa.",                    
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Pedro Henrique",
+                    Email = "pedrohenrique@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-2).AddMinutes(-41),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Marcos Santos",
+                    Email = "marcossantos@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-10),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Luisa da silva santos",
+                    Email = "luisasilvasantos@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-20).AddMinutes(-200),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Guilherme Joel",
+                    Email = "guilhermejoel@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-7).AddMinutes(-240),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Sabrina",
+                    Email = "sabrina@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-1).AddMinutes(-68),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Lucas pedroso",
+                    Email = "lucaspedroso@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddMinutes(-30),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Mathias pereira",
+                    Email = "mathiaspereira@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddMinutes(-40),
+                    New = true,
+                    Important = false
+                });
+
+                await AddAsync(new Contact
+                {
+                    Name = "Daivid batista",
+                    Email = "davidbatista@teste.com",
+                    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    Date = DateTime.UtcNow.AddDays(-5).AddMinutes(-80),
+                    New = true,
+                    Important = false
+                });
+            }
+
+
         }
     }
 }

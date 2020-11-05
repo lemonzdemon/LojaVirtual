@@ -10,33 +10,47 @@ using Microsoft.AspNetCore.Authorization;
 using BiaBraga.Admin.Services;
 using BiaBraga.Domain.Enums;
 using BiaBraga.Repository.Classes;
+using BiaBraga.Repository.Interfaces;
+using BiaBraga.Domain.Models.Entitys;
 
 namespace BiaBraga.Admin.Controllers
 {
     [AuthService(Role.Administrador, Role.Supervisor)]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IBiaBragaRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBiaBragaRepository repository)
         {
-            _logger = logger;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            var pass = Encript.HashValue("123fsdfsd&*()!sdhfladgsdfgdfsgfdfdsf456");
-
-            //6ED5833CF35286EBF8662B7B5949F0D742BBEC3F
-            //9F6DD00E09464F9799BC35ACBE48EDC2B8D28CE8
-            //34781457DD87161F51D36426090F5196E7102D6E
-
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+
+        public async Task<IActionResult> Contact(DateTime? minDate, DateTime? maxDate)
+        {
+            var contacts = await _repository.GetAllAsync<Contact>();
+
+            DateTime dateInit = minDate ?? DateTime.Now.AddMonths(-1);
+            DateTime dateFinish = !maxDate.HasValue || maxDate.Value > DateTime.Now ? DateTime.Now : maxDate.Value;
+
+            ViewData["minDate"] = dateInit.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = dateFinish.ToString("yyyy-MM-dd");
+
+            ViewData["qntImportante"] = contacts.Count(x => x.Important);
+            ViewData["qntNovo"] = contacts.Count(x => x.New);
+            ViewData["qntTotal"] = contacts.Count();
+
+            return View(contacts.Where(x => (x.Date >= dateInit && x.Date <= dateFinish) || x.Important).OrderBy(x => x.Important).ThenBy(x => x.New));
         }
 
         [AllowAnonymous]
