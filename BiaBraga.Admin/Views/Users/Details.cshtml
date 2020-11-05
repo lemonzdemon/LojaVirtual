@@ -1,4 +1,5 @@
 ﻿@model BiaBraga.Domain.Models.Entitys.User
+@using BiaBraga.Repository.Classes
 
 @{
     ViewData["Title"] = "Detalhes do usuario";
@@ -10,15 +11,32 @@
 <hr />
 
 <div class="jumbotron mb-5">
-    <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+    <div class="row" style="align-items:center">
+        <div class="col-md-3 image-upload">
+            <label class="text-center label-input" for="file-input">
+                @if (string.IsNullOrEmpty(Model.Image))
+                {
+                    <svg height="200" width="200" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                    </svg>
+                }
+                else
+                {
+                    <img height="200" width="200" style="border-radius: 50%" src="@Settings.UrlAPI/Resources/images/users/@Model.Image" />
+                }
+                <span class="h5" style="white-space:nowrap">Alterar imagem</span>
+            </label>
+            <input id="file-input" type="file" accept=".jpg,.jpeg,.png" />
+        </div>
+        <div class="col-md-9">
+            <h1>@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+    </div>
     <hr class="my-4">
     <div class="row">
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </div>
+
         <div class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nick)
         </div>
@@ -175,6 +193,39 @@
     </div>
 </div>
 
+<style>
+    .image-upload > input {
+        display: none;
+    }
 
+    .label-input:hover{
+        cursor:pointer;
+        background-color: rgba(0,0,0,0.1);
+    }
+
+</style>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            var img = document.querySelector('img');  // $('img')[0]
+            img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+
+            uploadImage(this.files[0]);
+        }
+    });
+
+     async function uploadImage(file) {
+         var urlUpload = '@Settings.UrlAPI' + '/api/services/upload/?folder=users&name=@Model.Id';
+
+         var data = new FormData();
+         data.append('file', file);
+         await fetch(urlUpload, {
+            method: 'POST',
+            body: data
+        });
+    }
+
+</script>
 
 

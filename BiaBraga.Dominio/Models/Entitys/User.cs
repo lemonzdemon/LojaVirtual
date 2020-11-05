@@ -68,10 +68,8 @@ namespace BiaBraga.Domain.Models.Entitys
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-
-        [NotMapped] //Arquivo salvo com nome id do usuario na pasta resources
         [Display(Name = "Imagem de perfil")]
-        [DataType(DataType.ImageUrl)]
+        [MaxLength(20)]
         public string Image { get; set; }
 
         [Required]

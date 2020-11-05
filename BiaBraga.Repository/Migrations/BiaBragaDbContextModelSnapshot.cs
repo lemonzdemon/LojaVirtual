@@ -126,6 +126,10 @@ namespace BiaBraga.Repository.Migrations
                     b.Property<int>("GenerId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasMaxLength(20);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(100) CHARACTER SET utf8mb4")

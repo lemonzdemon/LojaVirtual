@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiaBraga.Repository.Migrations
 {
     [DbContext(typeof(BiaBragaDbContext))]
-    [Migration("20201103141701_init")]
+    [Migration("20201104234500_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,10 @@ namespace BiaBraga.Repository.Migrations
 
                     b.Property<int>("GenerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Name")
                         .IsRequired()

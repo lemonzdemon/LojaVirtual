@@ -1,5 +1,5 @@
 ﻿@model BiaBraga.Domain.Models.Entitys.Product
-@using BiaBraga.Repository.Classes 
+@using BiaBraga.Repository.Classes
 
 @{
     ViewData["Title"] = "Detalhes do produto";
@@ -76,7 +76,7 @@
     </a>
 
     <button type="button" class="btn btn-info m-2 font-weight-bold" data-toggle="modal" data-target="#modal-image">
-        ARQUIVOS &nbsp;
+        IMAGENS &nbsp;
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-images" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M12.002 4h-10a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1zm-10-1a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-10zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
             <path fill-rule="evenodd" d="M4 2h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1z" />
@@ -159,7 +159,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Arquivos</h5>
+                <h5 class="modal-title">Imagens do produto</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -175,36 +175,45 @@
 
             </div>
             <div class="modal-footer">
-                <form id="form-image" class="bg-light m-3" method="post" enctype="multipart/form-data"
-                      action="@Settings.UrlAPI/api/services/upload/?folder=products&idProduto=@Model.ID">
-
-                    <div class="form-group">
-                        <input id="input-image" type="file" oninput="alterbutton(this)" class="form-control-file btn btn-info" id="file" name="file" />
-                    </div>
-                    <div class="form-group">
-                        <button id="btn-upload" class="btn btn-success w-100" disabled type="submit" formmethod="post">
-                            GRAVAR ARQUIVO &nbsp;
-                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
+                <div class="row w-100 align-content-center justify-content-center">
+                    <form id="form-image" method="post" class="col-md-10" enctype="multipart/form-data"
+                          action="@Settings.UrlAPI/api/services/upload/?folder=products&name=@Model.ID">
+                        <div class="form-group text-center">
+                            <label class="h4 m-2">Adicionar uma nova imagem</label>
+                            <input id="file" name="file" type="file" accept=".jpg,.jpeg,.png" onchange="validateFileType(this)" class="form-control-file bg-light" />
+                        </div>
+                        <div class="form-group">
+                            <button id="btn-upload" class="btn btn-success w-100" disabled type="submit" formmethod="post">
+                                GRAVAR IMAGEM &nbsp;
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                    <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function alterbutton(element) {
+
+    function validateFileType(element) {
+        var fileName = element.value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
         var obj = document.getElementById('btn-upload');
 
-        if (element.value && element.value.length > 0) {
+        if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
             obj.disabled = false;
-        }
-        else {
+
+        } else {
             obj.disabled = true;
+            element.value = '';
+            alert("Apenas imagens com extensão jpg,jpeg e png são permitidas.");
         }
     }
 
@@ -212,55 +221,64 @@
 
         var xmlHttp = new XMLHttpRequest();
 
-        var urlimages = @Settings.UrlAPI + "api/products/images/@Model.ID";
+        var urlimages = '@Settings.UrlAPI' + "/api/products/images/@Model.ID";
 
         xmlHttp.open("GET", urlimages, false); // false for synchronous request
         xmlHttp.onload = function () {
 
             if (xmlHttp.status == 200) {
 
-                document.getElementById('input-image').value = '';
+                document.getElementById('file').value = '';
+                document.getElementById('btn-upload').disabled = true;
                 var cards = document.getElementById('card-images');
 
                 var images = JSON.parse(xmlHttp.response);
 
                 cards.innerHTML = '';
 
-                for (i = 0; i < images.length; i++) {
+                if (images.length == 0) {
+                    cards.innerHTML = " <h4 class='w-100 text-center'>" +
+                        "Nenhuma imagem para o produto" +
+                        "</h4>";
+                }
+                else {
+                    for (i = 0; i < images.length; i++) {
 
-                    var urlimage = @Settings.UrlAPI + 'resources/images/products/' + @Model.ID + '/' + images[i].name;
-                    cards.insertAdjacentHTML('beforeend',
-                        "<div class='card mb-4 m-2' style='min-width: 22rem; max-width: 22rem;'>" +
-                        " <div class='card-body'> " +
-                        "<img class='card-img-top' src='" + urlimage + "' alt='image'>" +
-                        "</div>" +
-                        " <div class='card-footer'> " +
-                        "<button onclick='removeFile(" + images[i].name + ")' class='btn btn-danger'>Remover imagem</button>" +
-                        "</div>" +
-                        "</div>");
+                        var stringOnclick = `onclick="removeFile('${images[i].name}')"`;
 
+                        var urlimage = '@Settings.UrlAPI' + '/resources/images/products/' + @Model.ID + '/' + images[i].name;
+                        cards.insertAdjacentHTML('beforeend',
+                            "<div class='card mb-4 m-2' style='min-width: 22rem; max-width: 22rem;'>" +
+                            " <div class='card-body'> " +
+                            "<img class='card-img-top' src='" + urlimage + "' alt='image'>" +
+                            "</div>" +
+                            " <div class='card-footer'> " +
+                            "<button " + stringOnclick + " class='btn btn-sm btn-danger float-right'>" +
+                            "<svg width = '2em' height = '2em' viewBox = '0 0 16 16' class= 'bi bi-trash' fill = 'currentColor' xmlns = 'http://www.w3.org/2000/svg' > " +
+                            "<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' /> " +
+                            "<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z' /> " +
+                            "</svg>" +
+                            "</button> " +
+                            "</div>" +
+                            "</div>");
+                    }
                 }
             }
         };
         xmlHttp.send(new FormData());
     }
 
-    function removeFile(codimage) {
 
-    }
-
-    async function serviceHttp(method) {
-        const request = await fetch(urlApp + 'projetos/' + method + '/', {
+    async function removeFile(file) {
+        var urlFileRemove = '@Settings.UrlAPI' + '/api/services/delete-files/?folder=products/@Model.ID&file=' + file + '/';
+        console.log(urlFileRemove);
+        await fetch(urlFileRemove, {
             method: 'POST',
             contentType: 'application/json'
         });
 
-            const response = await request.json();
-
-            return response;
-
+        selectImages();
     }
-
 
     document.addEventListener("DOMContentLoaded", function (event) {
         selectImages();
@@ -268,10 +286,10 @@
 
     var form = document.getElementById('form-image');
     form.addEventListener('submit', function (e) {
-        e.preventDefault(); // <--- isto pára o envio da form
+        e.preventDefault();
 
-        var url = this.action; // <--- o url que processa a form
-        var formData = new FormData(this); // <--- os dados da form
+        var url = this.action;
+        var formData = new FormData(this);
         var ajax = new XMLHttpRequest();
         ajax.open("POST", url, true);
         ajax.onload = function () {

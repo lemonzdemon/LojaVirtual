@@ -77,6 +77,7 @@ namespace BiaBraga.Repository.Migrations
                     Telephone = table.Column<string>(maxLength: 14, nullable: true),
                     CellPhone = table.Column<string>(maxLength: 14, nullable: true),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
+                    Image = table.Column<string>(maxLength: 20, nullable: true),
                     ReceiveCellPhoneMessage = table.Column<bool>(nullable: false),
                     ReceiveEmailMessage = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),

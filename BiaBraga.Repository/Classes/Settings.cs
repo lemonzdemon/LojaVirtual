@@ -8,10 +8,10 @@ namespace BiaBraga.Repository.Classes
 {
     public class Settings
     {
-        public static readonly string UrlAPI = "";
-        public static readonly string UrlAdmin = "https://localhost:44391/";
+        public static readonly string UrlAPI = "https://localhost:44346";
+        public static readonly string UrlAdmin = "https://localhost:44391";
 
-        private readonly string ConnectionString = "server=localhost;userid=root;password=root;database=biabraga";
+        private readonly string ConnectionString = "server=localhost;userid=root;password=123456;database=biabraga";
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
