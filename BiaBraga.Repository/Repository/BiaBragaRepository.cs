@@ -3,6 +3,8 @@ using BiaBraga.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -78,6 +80,20 @@ namespace BiaBraga.Repository.Repository
                 //gravar log
                 return false;
             }
+        }
+
+        public async Task<List<T>> GetWhereAsync<T>(Expression<Func<T, bool>> where) where T : class
+        {
+            var result = new List<T>();
+            try
+            {
+                result = await _context.Set<T>().Where(where).ToListAsync();
+            }
+            catch (Exception)
+            {
+            }
+
+            return result;
         }
     }
 }

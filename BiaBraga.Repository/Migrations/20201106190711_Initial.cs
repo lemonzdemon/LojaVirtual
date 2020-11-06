@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BiaBraga.Repository.Migrations
 {
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,12 +91,12 @@ namespace BiaBraga.Repository.Migrations
                     AboutMe = table.Column<string>(maxLength: 1000, nullable: true),
                     GenerId = table.Column<int>(nullable: false),
                     Password = table.Column<string>(maxLength: 50, nullable: false),
-                    CPF = table.Column<string>(maxLength: 14, nullable: true),
+                    CPF = table.Column<string>(maxLength: 14, nullable: false),
                     Birth = table.Column<DateTime>(nullable: false),
                     Telephone = table.Column<string>(maxLength: 14, nullable: true),
                     CellPhone = table.Column<string>(maxLength: 14, nullable: true),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
-                    Image = table.Column<string>(maxLength: 20, nullable: true),
+                    Image = table.Column<string>(maxLength: 20, nullable: false),
                     ReceiveCellPhoneMessage = table.Column<bool>(nullable: false),
                     ReceiveEmailMessage = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),

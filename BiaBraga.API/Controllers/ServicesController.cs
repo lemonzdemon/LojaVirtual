@@ -57,12 +57,12 @@ namespace BiaBraga.API.Controllers
 
                     if (folder == "users")
                     {
-                        var users = await _repository.GetAllAsync<User>();
+                        var users = await _repository.GetWhereAsync<User>(x => x.Id.ToString() == name);
 
-                        var user = users.FirstOrDefault(x => x.Id.ToString() == name);
-
-                        if (user != null)
+                        if (users.Any())
                         {
+                            var user = users.FirstOrDefault();
+
                             var fullPathOld = Path.Combine(pathToSave, user.Image);
 
                             if (System.IO.File.Exists(fullPathOld))

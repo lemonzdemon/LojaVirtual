@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiaBraga.Repository.Migrations
 {
     [DbContext(typeof(BiaBragaDbContext))]
-    [Migration("20201105224204_init")]
-    partial class init
+    [Migration("20201106190711_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,6 +148,7 @@ namespace BiaBraga.Repository.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .HasColumnType("varchar(14) CHARACTER SET utf8mb4")
                         .HasMaxLength(14);
 
@@ -167,6 +168,7 @@ namespace BiaBraga.Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
                         .HasMaxLength(20);
 

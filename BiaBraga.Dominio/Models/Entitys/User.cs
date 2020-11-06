@@ -44,6 +44,7 @@ namespace BiaBraga.Domain.Models.Entitys
         [Compare(nameof(Password), ErrorMessage = "Senhas não conferem")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         [Display(Name = "CPF OU CNPJ")]
         [StringLength(14)]
         public string CPF { get; set; }
@@ -68,6 +69,7 @@ namespace BiaBraga.Domain.Models.Entitys
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         [Display(Name = "Imagem de perfil")]
         [MaxLength(20)]
         public string Image { get; set; }

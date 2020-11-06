@@ -50,7 +50,39 @@ namespace BiaBraga.Admin.Controllers
             ViewData["qntNovo"] = contacts.Count(x => x.New);
             ViewData["qntTotal"] = contacts.Count();
 
-            return View(contacts.Where(x => (x.Date >= dateInit && x.Date <= dateFinish) || x.Important).OrderBy(x => x.Important).ThenBy(x => x.New));
+            return View(contacts.Where(x => (x.Date >= dateInit && x.Date <= dateFinish) || x.Important)
+                .OrderByDescending(x => x.Important).ThenByDescending(x => x.New).ThenBy(x => x.Date));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(int? id, string important)
+        {
+            try
+            {
+                if(id.HasValue)
+                {
+                    var contacts = await _repository.GetWhereAsync<Contact>(x => x.Id == id);
+
+                    if(contacts.Any())
+                    {
+                        var contact = contacts.First();
+
+                        if (!string.IsNullOrEmpty(important))
+                        {
+                            contact.Important = important.ToLower().Contains(bool.TrueString.ToLower());
+                        }
+
+                        contact.New = false;
+
+                        await _repository.UpdateAsync(contact);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return Ok();
         }
 
         [AllowAnonymous]

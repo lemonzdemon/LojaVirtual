@@ -32,9 +32,10 @@ namespace BiaBraga.Repository.Repository
                     Password = Encript.HashValue("admin"),
                     CellPhone = "99999999999",
                     Email = "administrativo@biabraga.com",
-                    CPF = "99999999999",
+                    CPF = "354.452.593-31",
                     ReceiveCellPhoneMessage = false,
                     ReceiveEmailMessage = false,
+                    Image = string.Empty,
                     Gener = new Genre
                     {
                         Name = "Indefinido"
@@ -52,10 +53,12 @@ namespace BiaBraga.Repository.Repository
                               "Depende de quando e como você me vê passar.",
                     Date = DateTime.UtcNow,
                     Password = Encript.HashValue("admin"),
+                    CPF = "626.374.475-83",
                     CellPhone = "14981162437",
                     Email = "biabraga@gmail.com",
                     ReceiveCellPhoneMessage = false,
                     ReceiveEmailMessage = false,
+                    Image = string.Empty,
                     Gener = new Genre
                     {
                         Name = "Feminino"
@@ -71,10 +74,12 @@ namespace BiaBraga.Repository.Repository
                     AboutMe = "Ninguém tem o direito de me julgar a não ser eu mesmo.Eu me pertenço e de mim faço o que bem entender.",
                     Date = DateTime.UtcNow,
                     Password = Encript.HashValue("admin"),
+                    CPF = "982.286.824-33",
                     CellPhone = "14981725654",
                     Email = "alexmatos@gmail.com",
                     ReceiveCellPhoneMessage = false,
                     ReceiveEmailMessage = false,
+                    Image = string.Empty,
                     Gener = new Genre
                     {
                         Name = "Masculino"
