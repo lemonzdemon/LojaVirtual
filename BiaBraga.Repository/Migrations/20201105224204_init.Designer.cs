@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiaBraga.Repository.Migrations
 {
     [DbContext(typeof(BiaBragaDbContext))]
-    [Migration("20201105125904_init")]
+    [Migration("20201105224204_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,7 @@ namespace BiaBraga.Repository.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("varchar(1000) CHARACTER SET utf8mb4")
                         .HasMaxLength(1000);
 

@@ -30,7 +30,7 @@ namespace BiaBraga.Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
-                    Message = table.Column<string>(maxLength: 1000, nullable: true),
+                    Message = table.Column<string>(maxLength: 1000, nullable: false),
                     New = table.Column<bool>(nullable: false),
                     Important = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false)

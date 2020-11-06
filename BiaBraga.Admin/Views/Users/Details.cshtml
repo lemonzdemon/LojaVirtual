@@ -35,89 +35,156 @@
         </div>
     </div>
     <hr class="my-4">
-    <div class="row">
 
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nick)
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group col-md-12">
+                <label class="control-label">
+                    @Html.DisplayNameFor(model => model.Nick)
+                </label>
+                @Html.DisplayFor(model => model.Nick)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.AboutMe)
+                </label>
+                @Html.DisplayFor(model => model.AboutMe)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Gener)
+                </label>
+                @Html.DisplayFor(model => model.Gener)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.CPF)
+                </label>
+                @Html.DisplayFor(model => model.CPF)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Birth)
+                </label>
+                @Html.DisplayFor(model => model.Birth)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Telephone)
+                </label>
+                @Html.DisplayFor(model => model.Telephone)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.CellPhone)
+                </label>
+                @Html.DisplayFor(model => model.CellPhone)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.ReceiveCellPhoneMessage)
+                </label>
+                @Html.DisplayFor(model => model.ReceiveCellPhoneMessage)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.ReceiveEmailMessage)
+                </label>
+                @Html.DisplayFor(model => model.ReceiveEmailMessage)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Date)
+                </label>
+                @Html.DisplayFor(model => model.Date)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Role)
+                </label>
+                @Html.DisplayFor(model => model.Role)
+            </div>
+
+            <div class="form-group col-md-12">
+                <label>
+                    @Html.DisplayNameFor(model => model.Nick)
+                </label>
+                @Html.DisplayFor(model => model.Nick)
+            </div>
         </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Nick)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AboutMe)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.AboutMe)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gener)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Gener.Name)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CPF)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.CPF)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Birth)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Birth)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Telephone)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Telephone)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CellPhone)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.CellPhone)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReceiveCellPhoneMessage)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.ReceiveCellPhoneMessage)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReceiveEmailMessage)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.ReceiveEmailMessage)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </div>
-        <div class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </div>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => model.Role)
+
+        <div class="col-md-3">
+            <div class="btn-group-vertical">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info m-2 font-weight-bold">
+                    EDITAR &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                </a>
+
+                <a href="#" class="btn btn-info m-2 font-weight-bold">
+                    ATIVIDADES &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-lightning" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z" />
+                    </svg>
+                </a>
+
+                <a href="#" class="btn btn-info m-2 font-weight-bold">
+                    PEDIDOS &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                    </svg>
+                </a>
+
+                <a href="#" class="btn btn-info m-2 font-weight-bold">
+                    ENDEREÇO &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                    </svg>
+                </a>
+
+                <a href="#" class="btn btn-danger m-2 font-weight-bold">
+                    BLOQUEAR &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-emoji-frown" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path fill-rule="evenodd" d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z" />
+                        <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                    </svg>
+                </a>
+
+                <button type="button"
+                        class="btn btn-danger m-2 font-weight-bold"
+                        data-toggle="modal"
+                        data-target="#modal-delete">
+                    REMOVER &nbsp;
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-emoji-dizzy" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path fill-rule="evenodd" d="M9.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708zm-5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708z" />
+                        <path d="M10 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                    </svg>
+                </button>
+
+            </div>
+
         </div>
     </div>
-    <hr />
 
+
+
+
+    <hr />
     <a asp-action="Index" class="btn btn-info m-2 font-weight-bold">
         VOLTAR &nbsp;
         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -125,24 +192,6 @@
             <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
         </svg>
     </a>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info m-2 font-weight-bold">
-        EDITAR &nbsp;
-        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-        </svg>
-    </a>
-
-    <button type="button"
-            class="btn btn-danger m-2 font-weight-bold"
-            data-toggle="modal"
-            data-target="#modal-delete">
-        REMOVER &nbsp;
-        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-        </svg>
-    </button>
 </div>
 <br />
 <br />
@@ -173,7 +222,7 @@
 
                         <hr />
 
-                        NÃO É RECOMENDÁVEL REMOVER UM USUARIO, PARA ISSO QUE EXISTE A OPÇÃO DE BLOQUEAR NA PÁGINA DE EDITAR!<br />
+                        NÃO É RECOMENDÁVEL REMOVER UM USUARIO, PARA ISSO QUE EXISTE A OPÇÃO DE BLOQUEAR!<br />
 
                         <br />
                         <span class="font-weight-bold">Essa ação é irreversível!</span>
@@ -198,20 +247,23 @@
         display: none;
     }
 
-    .label-input:hover{
-        cursor:pointer;
+    .label-input:hover {
+        cursor: pointer;
         background-color: rgba(0,0,0,0.1);
     }
-
 </style>
 
 <script>
-    document.querySelector('input[type="file"]').addEventListener('change', function () {
+    document.querySelector('input[type="file"]').addEventListener('change', async function () {
         if (this.files && this.files[0]) {
-            var img = document.querySelector('img');  // $('img')[0]
-            img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-
-            uploadImage(this.files[0]);
+            var img = document.querySelector('img');
+            await uploadImage(this.files[0]);
+            if (img) {
+                img.src = URL.createObjectURL(this.files[0]);
+            }
+            else {
+                location.reload();
+            }
         }
     });
 
