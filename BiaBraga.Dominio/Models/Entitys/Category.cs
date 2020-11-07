@@ -16,5 +16,10 @@ namespace BiaBraga.Domain.Models.Entitys
         [StringLength(200, ErrorMessage = "Descrição deve ter no máximo 200 caracteres")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Departamento é obrigatório.")]
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

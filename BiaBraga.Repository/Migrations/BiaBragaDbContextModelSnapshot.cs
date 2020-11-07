@@ -23,6 +23,9 @@ namespace BiaBraga.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
                         .HasMaxLength(200);
@@ -33,6 +36,8 @@ namespace BiaBraga.Repository.Migrations
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Categories");
                 });
@@ -70,6 +75,26 @@ namespace BiaBraga.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Genre", b =>
@@ -202,6 +227,15 @@ namespace BiaBraga.Repository.Migrations
                     b.HasIndex("GenerId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Category", b =>
+                {
+                    b.HasOne("BiaBraga.Domain.Models.Entitys.Department", "Department")
+                        .WithMany("Categories")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BiaBraga.Domain.Models.Entitys.Product", b =>

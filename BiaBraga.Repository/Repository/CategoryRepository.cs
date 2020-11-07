@@ -18,6 +18,7 @@ namespace BiaBraga.Repository.Repository
 
         public async Task<Category> GetCategoryByIdAsync(int id) =>
             await _context.Categories
+            .Include(x => x.Department)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<bool> CategorieExistInProductAsync(int id) =>

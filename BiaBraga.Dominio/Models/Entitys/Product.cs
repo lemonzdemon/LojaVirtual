@@ -21,7 +21,7 @@ namespace BiaBraga.Domain.Models.Entitys
 
         [Display(Name = "Preço Atual")]
         [Required(ErrorMessage = "Preço atual obrigatório")]
-        [Range(0, 9999.99, ErrorMessage = "Preço atual deve ser entre R$0.00 a R$9,999.99")]
+        [Range(0, 999999, ErrorMessage = "Preço atual deve ser entre R$0.00 a R$9,999.99")]
         public decimal Price { get; set; }
 
         [Display(Name = "Preço Antigo")]

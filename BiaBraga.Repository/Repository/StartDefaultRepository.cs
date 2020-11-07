@@ -20,7 +20,7 @@ namespace BiaBraga.Repository.Repository
         {
             var userAdmin = await _context.Users.AnyAsync(x => x.Role == Domain.Enums.Role.Administrador);
 
-            if(!userAdmin)
+            if (!userAdmin)
             {
                 await AddAsync(new User
                 {
@@ -88,8 +88,8 @@ namespace BiaBraga.Repository.Repository
             }
 
             var contacts = await _context.Contacts.AnyAsync();
-            
-            if(!contacts)
+
+            if (!contacts)
             {
                 await AddAsync(new Contact
                 {
@@ -105,7 +105,8 @@ namespace BiaBraga.Repository.Repository
                 {
                     Name = "Maria da silva",
                     Email = "mariasilva@teste.com",
-                    Message = "Auctor augue mauris augue neque gravida in. Integer quis auctor elit sed vulputate. In hendrerit gravida rutrum quisque non. Sem integer vitae justo eget. Quis risus sed vulputate odio ut enim blandit volutpat. Phasellus faucibus scelerisque eleifend donec pretium. Amet nisl suscipit adipiscing bibendum est. Metus vulputate eu scelerisque felis. Ut etiam sit amet nisl purus in mollis nunc sed. Ipsum consequat nisl vel pretium lectus quam id leo. Donec ac odio tempor orci dapibus ultrices in iaculis. Id ornare arcu odio ut sem nulla. Odio morbi quis commodo odio aenean sed. Gravida rutrum quisque non tellus orci ac. Pretium lectus quam id leo in vitae turpis massa.",                    
+                    Message = "Auctor augue mauris augue neque gravida in. Integer quis auctor elit sed vulputate. In hendrerit gravida rutrum quisque non. Sem integer vitae justo eget. Quis risus sed vulputate odio ut enim blandit volutpat. Phasellus faucibus scelerisque eleifend donec pretium. Amet nisl suscipit adipiscing bibendum est. Metus vulputate eu scelerisque felis. Ut etiam sit amet nisl purus in mollis nunc sed. Ipsum consequat nisl vel pretium lectus quam id leo. Donec ac odio tempor orci dapibus ultrices in iaculis. Id ornare arcu odio ut sem nulla. Odio morbi quis commodo odio aenean sed. Gravida rutrum quisque non tellus orci ac. Pretium lectus quam id leo in vitae turpis massa.",
+                    Date = DateTime.UtcNow.AddDays(-2),
                     New = true,
                     Important = false
                 });
@@ -165,7 +166,7 @@ namespace BiaBraga.Repository.Repository
                     Name = "Lucas pedroso",
                     Email = "lucaspedroso@teste.com",
                     Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    Date = DateTime.UtcNow.AddMinutes(-30),
+                    Date = DateTime.UtcNow.AddDays(-1).AddMinutes(-30),
                     New = true,
                     Important = false
                 });
@@ -175,7 +176,7 @@ namespace BiaBraga.Repository.Repository
                     Name = "Mathias pereira",
                     Email = "mathiaspereira@teste.com",
                     Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    Date = DateTime.UtcNow.AddMinutes(-40),
+                    Date = DateTime.UtcNow.AddHours(-7).AddMinutes(-40),
                     New = true,
                     Important = false
                 });
@@ -192,6 +193,68 @@ namespace BiaBraga.Repository.Repository
             }
 
 
+            var products = await _context.Products.AnyAsync();
+
+            if (!products)
+            {
+                await AddAsync(new Product
+                {
+                    Name = "Creme para as mãos TOP",
+                    Description = "Creme maravilhoso para as suas mãos ficarem top",
+                    Active = true,
+                    Categoria = new Category
+                    {
+                        Name = "Gel feminino",
+                        Department = new Department
+                        {
+                            Name = "Cosmético",
+                            Description = "Tudo em cosméticos"
+                        }
+                    },
+                    Date = DateTime.UtcNow,
+                    OldPrice = 0.00M,
+                    Price = 1.00M,
+                    Quantity = 10
+                });
+
+                await AddAsync(new Product
+                {
+                    Name = "Vibrador para casal multifuncional",
+                    Description = "Vibrador sensacional para o casal curtir",
+                    Active = true,
+                    Categoria = new Category
+                    {
+                        Name = "Vibrador para casal",
+                        Department = new Department
+                        {
+                            Name = "Vibrador"
+                        }
+                    },
+                    Date = DateTime.UtcNow,
+                    OldPrice = 50.00M,
+                    Price = 39.90M,
+                    Quantity = 50
+                });
+
+                await AddAsync(new Product
+                {
+                    Name = "Conjunto sensual",
+                    Description = "Conjunto sensual com cropped em renda e saia preto",
+                    Active = true,
+                    Categoria = new Category
+                    {
+                        Name = "Roupa Sensual",
+                        Department = new Department
+                        {
+                            Name = "Lingerie"
+                        }
+                    },
+                    Date = DateTime.UtcNow,
+                    OldPrice = 100.00M,
+                    Price = 99.90M,
+                    Quantity = 5
+                });
+            }
         }
     }
 }

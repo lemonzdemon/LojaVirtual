@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Repository.Interfaces;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BiaBraga.Admin.Controllers
 {
@@ -50,8 +51,9 @@ namespace BiaBraga.Admin.Controllers
         }
 
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["DepartmentId"] = new SelectList(await _repository.GetAllAsync<Department>(), "Id", "Name");
             return View();
         }
 
@@ -63,12 +65,12 @@ namespace BiaBraga.Admin.Controllers
             {
                 if(await _repository.CategorieExistAsync(category.Name, null))
                 {
+                    ViewData["DepartmentId"] = new SelectList(await _repository.GetAllAsync<Department>(), "Id", "Name");
                     ViewData["Error"] = "Ja existe uma categoria com esse nome.";
                     return View(category);
                 }
 
                 await _repository.AddAsync(category);
-
                 return RedirectToAction(nameof(Details), new { id = category.Id });
             }
 
@@ -87,6 +89,7 @@ namespace BiaBraga.Admin.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DepartmentId"] = new SelectList(await _repository.GetAllAsync<Department>(), "Id", "Name");
             return View(category);
         }
 
@@ -106,6 +109,7 @@ namespace BiaBraga.Admin.Controllers
                 {
                     if (await _repository.CategorieExistAsync(category.Name, id))
                     {
+                        ViewData["DepartmentId"] = new SelectList(await _repository.GetAllAsync<Department>(), "Id", "Name");
                         ViewData["Error"] = "Ja existe uma categoria com esse nome.";
                         return View(category);
                     }

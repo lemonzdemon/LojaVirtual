@@ -7,10 +7,10 @@ namespace BiaBraga.Repository.Context
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Genre> Genres { get; set; }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories{ get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         public BiaBragaDbContext(DbContextOptions<BiaBragaDbContext> options) : base(options)
         {
