@@ -1,10 +1,11 @@
 ﻿using BiaBraga.Domain.Models;
+using BiaBraga.Domain.Models.Dtos;
 
 namespace BiaBraga.Admin.Models.FormViewModel.Users
 {
     public class LoginViewModel
     {
-        public Login Login { get; set; }
+        public LoginDto Login { get; set; }
         public ResultDefault ResultDefault { get; set; }
     }
 }

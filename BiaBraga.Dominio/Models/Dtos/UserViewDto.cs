@@ -1,12 +1,13 @@
 ﻿using BiaBraga.Domain.Enums;
 using BiaBraga.Domain.Models.Entitys;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace BiaBraga.Domain.Models.Entitys
+namespace BiaBraga.Domain.Models.Dtos
 {
-    public class User 
+    public class UserViewDto
     {
         [Display(Name = "Codigo do usuario")]
         public int Id { get; set; }
@@ -28,7 +29,7 @@ namespace BiaBraga.Domain.Models.Entitys
         [Display(Name = "Gênero")]
         [Required(ErrorMessage = "Gênero obrigatório")]
         public int GenerId { get; set; }
-        public Genre Gener{ get; set; }
+        public Genre Gener { get; set; }
 
         [Display(Name = "Senha de acesso")]
         [Required(ErrorMessage = "Senha obrigatória")]
@@ -36,7 +37,6 @@ namespace BiaBraga.Domain.Models.Entitys
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [NotMapped]
         [Display(Name = "Confirmação da senha")]
         [Required(ErrorMessage = "Confirmação da senha obrigatória")]
         [DataType(DataType.Password)]

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BiaBraga.Domain.Models
+namespace BiaBraga.Domain.Models.Dtos
 {
-    public class Login
+    public class LoginDto
     {
         [Required(ErrorMessage = "Você deve informar o seu login de acesso")]
         [Display(Name = "Login")]

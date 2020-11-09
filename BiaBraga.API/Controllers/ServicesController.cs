@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiaBraga.API.Controllers
 {
     [Route("api/services")]
     [ApiController]
+    [AllowAnonymous]
     public class ServicesController : ControllerBase
     {
         private readonly IBiaBragaRepository _repository;

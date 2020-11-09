@@ -1,4 +1,5 @@
 ﻿using BiaBraga.Domain.Models;
+using BiaBraga.Domain.Models.Dtos;
 using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Repository.Classes;
 using BiaBraga.Repository.Context;
@@ -21,7 +22,7 @@ namespace BiaBraga.Repository.Repository
         public async Task<User> GetByIdAsync(int id)
         => await _context.Users.Include(x => x.Gener).FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<ResultDefault> VerifyLoginAsync(Login login)
+        public async Task<ResultDefault> VerifyLoginAsync(LoginDto login)
         {
             ResultDefault resultDefault = new ResultDefault
             {

@@ -49,7 +49,7 @@ namespace BiaBraga.Admin.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(Login login)
+        public async Task<IActionResult> Login(LoginDto login)
         {
             if (ModelState.IsValid)
             {

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\Dtos\UserViewDto.cs~RFc89cc8e.TMP" />
     <None Remove="Models\Entitys\Product.cs~RFc43668.TMP" />
   </ItemGroup>
 

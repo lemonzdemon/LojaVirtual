@@ -1,4 +1,5 @@
 ﻿using BiaBraga.Domain.Models;
+using BiaBraga.Domain.Models.Dtos;
 using BiaBraga.Domain.Models.Entitys;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,6 @@ namespace BiaBraga.Repository.Interfaces
     {
         Task<User> GetByIdAsync(int id);
         Task<List<User>> GetAllUsersAsync();
-        Task<ResultDefault> VerifyLoginAsync(Login login);
+        Task<ResultDefault> VerifyLoginAsync(LoginDto login);
     }
 }
