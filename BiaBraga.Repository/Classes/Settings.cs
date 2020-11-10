@@ -12,6 +12,11 @@ namespace BiaBraga.Repository.Classes
         public static readonly string UrlAdmin = "https://localhost:44391";
         public static readonly string SecretKey = "4F8B2A41D93D573E81D5C1937BAAF";
 
+        public static string GetSecretKey()
+        {
+            return Encript.Decrypt("");
+        }
+
         private readonly string ConnectionString = "server=localhost;userid=root;password=123456;database=biabraga";
 
         public virtual void ConfigureServices(IServiceCollection services)
