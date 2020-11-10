@@ -84,6 +84,8 @@ namespace BiaBraga.API.Controllers
             }
         }
 
+        [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             try
@@ -113,6 +115,29 @@ namespace BiaBraga.API.Controllers
             catch (Exception ex)
             {
                 return ErrorException(ex, nameof(Login));
+            }
+        }
+
+        [HttpPost("auth")]
+        public async Task<IActionResult> GetUserAuth()
+        {
+            int userId = 0;
+            try
+            {
+                NewLog(nameof(GetUserAuth), TypeLogger.StartProcess);
+                var user = await _userManager.GetUserAsync(User);
+
+                userId = user != null ? user.Id : 0;
+
+                NewLog(nameof(GetUserAuth), TypeLogger.StartMapping);
+                var userModel = _mapper.Map<UserViewDto>(user);
+
+                NewLog(nameof(GetUserAuth), TypeLogger.FinishSucess);
+                return Ok(userModel);
+            }
+            catch (Exception ex)
+            {
+                return ErrorException(ex, nameof(GetUserAuth), userId);
             }
         }
 
