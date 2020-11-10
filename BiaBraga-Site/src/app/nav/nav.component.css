@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+
+.navbar-brand{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 18pt;
+}
+
+.search-input {
+    position: relative;
+}
+
+
+.search-ico {
+    position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        border: none;
+        background: transparent;
+        outline: none;
+        margin-top: 23px;
+        color: red;
+}
