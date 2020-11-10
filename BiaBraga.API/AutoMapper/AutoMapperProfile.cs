@@ -16,6 +16,11 @@ namespace BiaBraga.API.AutoMapper
             {
                 opt.MapFrom(src => src.Gener);
             }).ReverseMap();
+
+            CreateMap<Product, ProductViewDto>().ForMember(dest => dest.Categoria, opt =>
+            {
+                opt.MapFrom(src => src.Categoria);
+            }).ReverseMap();
         }
     }
 }
