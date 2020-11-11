@@ -1,6 +1,6 @@
 ﻿using BiaBraga.Domain.Models.Entitys;
 
-namespace BiaBraga.Domain.Models.Dtos
+namespace BiaBraga.Business.Dtos
 {
     public class ProductViewDto
     {

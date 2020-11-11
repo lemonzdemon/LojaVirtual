@@ -1,5 +1,5 @@
 ﻿using BiaBraga.Domain.Models.Entitys;
-using BiaBraga.Repository.Classes;
+using BiaBraga.Repository;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;

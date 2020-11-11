@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BiaBraga.Domain.Models.Dtos
+namespace BiaBraga.Business.Dtos
 {
     public class UserInsertDto
     {

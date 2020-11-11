@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BiaBraga.Domain.Models.Dtos;
+using BiaBraga.Business.Dtos;
 using BiaBraga.Domain.Models.Entitys;
 
 namespace BiaBraga.API.AutoMapper

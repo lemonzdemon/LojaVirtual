@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BiaBraga.Domain.Models.Dtos
+namespace BiaBraga.Business.Dtos
 {
     public class LoginDto
     {

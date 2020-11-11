@@ -1,5 +1,5 @@
-﻿using BiaBraga.Domain.Models;
-using BiaBraga.Domain.Models.Dtos;
+﻿using BiaBraga.Business.Dtos;
+using BiaBraga.Domain.Models;
 using BiaBraga.Domain.Models.Entitys;
 using BiaBraga.Repository.Classes;
 using BiaBraga.Repository.Context;

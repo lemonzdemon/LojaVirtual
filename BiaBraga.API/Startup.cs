@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BiaBraga.Domain.Enums;
 using BiaBraga.Domain.Models.Entitys;
+using BiaBraga.Repository;
 using BiaBraga.Repository.Classes;
 using BiaBraga.Repository.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,7 +45,7 @@ namespace BiaBraga.API
             services.AddControllers().AddNewtonsoftJson();
             services.AddCors();
 
-            var key = Encoding.ASCII.GetBytes(Settings.SecretKey);
+            var key = Encoding.ASCII.GetBytes(SecretKey);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

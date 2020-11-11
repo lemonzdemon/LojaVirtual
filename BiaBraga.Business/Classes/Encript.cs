@@ -9,12 +9,10 @@ namespace BiaBraga.Repository.Classes
     public static class Encript
     {
         public static string _key = string.Empty;
-        private static SymmetricAlgorithm _algorithm;
-
-        private static void SetIV()
-        {
-            _algorithm.IV = new byte[] { 0xf, 0x6f, 0x13, 0x2e, 0x35, 0xc2, 0xcd, 0xf9, 0x5, 0x46, 0x9c, 0xea, 0xa8, 0x4b, 0x73, 0xcc };
-        }
+        private static readonly SymmetricAlgorithm _algorithm = new RC2CryptoServiceProvider {
+            Mode = CipherMode.CBC,
+            IV = new byte[] { 0xf, 0x6f, 0x13, 0x2e, 0x35, 0xc2, 0xcd, 0xf9 }
+    };
 
         private static byte[] GetKey()
         {
@@ -47,7 +45,6 @@ namespace BiaBraga.Repository.Classes
             byte[] plainByte = Encoding.UTF8.GetBytes(text);
             byte[] keyByte = GetKey();
             _algorithm.Key = keyByte;
-            SetIV();
             ICryptoTransform cryptoTransform = _algorithm.CreateEncryptor();
             MemoryStream _memoryStream = new MemoryStream();
             CryptoStream _cryptoStream = new CryptoStream(_memoryStream, cryptoTransform, CryptoStreamMode.Write);
@@ -64,7 +61,6 @@ namespace BiaBraga.Repository.Classes
             byte[] keyByte = GetKey();
 
             _algorithm.Key = keyByte;
-            SetIV();
             ICryptoTransform cryptoTransform = _algorithm.CreateDecryptor();
             try
             {

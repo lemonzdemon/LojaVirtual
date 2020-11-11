@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
-using BiaBraga.Repository.Classes;
+using BiaBraga.Repository;
 using BiaBraga.Repository.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;

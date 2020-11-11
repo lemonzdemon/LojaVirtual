@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BiaBraga.Domain.Models.Dtos
+namespace BiaBraga.Business.Dtos
 {
     public class UserViewDto
     {

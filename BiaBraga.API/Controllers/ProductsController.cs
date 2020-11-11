@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BiaBraga.API.Models.Enums;
 using BiaBraga.API.Services;
-using BiaBraga.Domain.Models.Dtos;
+using BiaBraga.Business.Dtos;
 using BiaBraga.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

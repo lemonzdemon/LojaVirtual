@@ -15,7 +15,7 @@ using BiaBraga.Admin.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BiaBraga.Repository.Classes;
-using BiaBraga.Domain.Models.Dtos;
+using BiaBraga.Business.Dtos;
 
 namespace BiaBraga.Admin.Controllers
 {
